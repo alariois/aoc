@@ -49,6 +49,11 @@ is-report-safe-dampened() {
   local remove_start=$((result-1))
   local remove_end=$((result))
 
+  if ((remove_start == 1)); then
+    # edge case, if sign flips with third number
+    remove_start=0
+  fi
+
   local levels=("$@")
   local len=${#levels[@]}
 
