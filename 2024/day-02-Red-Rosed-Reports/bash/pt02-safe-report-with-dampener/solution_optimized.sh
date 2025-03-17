@@ -5,6 +5,8 @@ if [[ " $* " =~ [[:space:]](--example|-e)[[:space:]] ]]; then
 input_file="../../input.example.txt"
 fi
 
+# return 0 on success and problem index+1 on failure
+# NB! should use stdin/stdout for lines longer than 254 numbers
 is-report-safe() {
   local levels=("$@")
   # assume at least two levels in a report
@@ -50,7 +52,8 @@ is-report-safe-dampened() {
   local remove_end=$((result))
 
   if ((remove_start == 1)); then
-    # edge case, if sign flips with third number
+    # Edge case, if sign flips with third number.
+    # Check three cases to be safe
     remove_start=0
   fi
 
